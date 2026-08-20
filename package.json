@@ -1,0 +1,13 @@
+{
+  "name": "lohagarh-manpower-solutions",
+  "version": "1.0.0",
+  "description": "Lohagarh Manpower Solutions Website",
+  "main": "index.html",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "formidable": "^3.5.1",
+    "nodemailer": "^6.9.10"
+  }
+}

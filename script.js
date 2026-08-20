@@ -37,19 +37,27 @@ if (candidateForm) {
 
         const formData = new FormData(candidateForm);
 
-        fetch("submit-candidate.php", {
+        // Try Vercel Serverless API first, fallback to PHP handler if 404
+        fetch("api/submit-candidate", {
             method: "POST",
             body: formData
         })
         .then(function (response) {
+            if (response.status === 404) {
+                // Fallback to PHP on Localhost/Laragon
+                return fetch("submit-candidate.php", {
+                    method: "POST",
+                    body: formData
+                }).then(res => res.json());
+            }
             return response.json();
         })
         .then(function (data) {
-            if (data.status === "success") {
+            if (data && (data.status === "success" || data.success)) {
                 alert("Thank you! Your resume and details have been submitted successfully and delivered to Gmail inbox.");
                 candidateForm.reset();
             } else {
-                alert(data.message || "Failed to submit. Please try again.");
+                alert((data && data.message) || "Failed to submit. Please try again.");
             }
         })
         .catch(function (error) {
@@ -82,19 +90,27 @@ if (employerForm) {
 
         const formData = new FormData(employerForm);
 
-        fetch("submit-employer.php", {
+        // Try Vercel Serverless API first, fallback to PHP handler if 404
+        fetch("api/submit-employer", {
             method: "POST",
             body: formData
         })
         .then(function (response) {
+            if (response.status === 404) {
+                // Fallback to PHP on Localhost/Laragon
+                return fetch("submit-employer.php", {
+                    method: "POST",
+                    body: formData
+                }).then(res => res.json());
+            }
             return response.json();
         })
         .then(function (data) {
-            if (data.status === "success") {
+            if (data && (data.status === "success" || data.success)) {
                 alert("Thank you! Your enquiry has been submitted successfully and delivered to Gmail inbox.");
                 employerForm.reset();
             } else {
-                alert(data.message || "Failed to submit enquiry. Please try again.");
+                alert((data && data.message) || "Failed to submit enquiry. Please try again.");
             }
         })
         .catch(function (error) {
