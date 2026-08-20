@@ -1,0 +1,12 @@
+# Ignore uploaded files
+uploads/resumes/*
+!uploads/resumes/.gitkeep
+
+# Sensitive config (App passwords/secrets)
+config.php
+
+# OS & IDE temporary files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
